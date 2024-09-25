@@ -17,7 +17,10 @@ export class AuthorRepository {
   async findAll(): Promise<Author[]> {
     return this.authorModel
       .find()
-      .populate({ path: 'user', select: 'first_name last_name username' })
+      .populate({
+        path: 'user',
+        select: 'first_name last_name username role email profile_url',
+      })
       .populate({ path: 'books', select: 'title' })
       .exec();
   }
@@ -25,13 +28,26 @@ export class AuthorRepository {
   async findById(authorId: string): Promise<Author> {
     return await this.authorModel
       .findById(authorId)
-      .populate({ path: 'user', select: 'first_name last_name username' })
+      .populate({
+        path: 'user',
+        select: 'first_name last_name username role email profile_url',
+      })
       .populate({ path: 'books', select: 'title' })
       .exec();
   }
 
   async findOne(query: any): Promise<AuthorDocument> {
-    return await this.authorModel.findOne(query).exec();
+    return await this.authorModel
+      .findOne(query)
+      .populate({
+        path: 'user',
+        select: 'first_name last_name username role email profile_url',
+      })
+      .populate({
+        path: 'books',
+        select: 'title description genre book_url published_date',
+      })
+      .exec();
   }
 
   async update(query: any, updateData: Partial<Author>): Promise<Author> {

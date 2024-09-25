@@ -5,6 +5,9 @@ import { BookDto } from './dto/book.dto';
 import { ACCOUNT_TYPE } from '../constants';
 import { UserRepository } from '../users/user.repository';
 import { AuthorRepository } from '../authors/author.repository';
+import { CommenOnBookDto } from './dto/book-comment.dto';
+import { Types } from 'mongoose';
+import { ReviewDocument } from './schema/comments.schema';
 
 @Injectable()
 export class BookService {
@@ -26,9 +29,10 @@ export class BookService {
 
     const book = await this.bookRepository.create({
       ...bookData,
-      publishedDate: new Date(),
+      published_date: new Date(),
       author: author._id,
       user: user._id,
+      review: [],
     });
 
     const authorsBooks = [...author.books, book._id];
@@ -86,5 +90,29 @@ export class BookService {
   async deleteBook(bookId: string): Promise<ApiResponse<void>> {
     await this.bookRepository.delete(bookId);
     return { message: 'Book deleted successfully', data: null, status: true };
+  }
+
+  async commentOnBook(
+    reviewData: CommenOnBookDto,
+    user_id: string,
+  ): Promise<ApiResponse<ReviewDocument>> {
+    const book = await this.bookRepository.findById(reviewData.bookId);
+
+    const comment = await this.bookRepository.createComment({
+      user: new Types.ObjectId(user_id),
+      rating: reviewData.rating,
+      comment: reviewData.comment,
+      book: new Types.ObjectId(reviewData.bookId),
+    });
+
+    await this.bookRepository.update(reviewData.bookId, {
+      review: [...book.reviews, new Types.ObjectId(user_id)],
+    });
+
+    return {
+      message: 'Book updated successfully',
+      data: comment,
+      status: true,
+    };
   }
 }

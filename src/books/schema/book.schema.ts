@@ -15,6 +15,9 @@ export class Book {
   @Prop({ type: Types.ObjectId, ref: 'Author', required: true })
   author: Types.ObjectId;
 
+  @Prop({ type: Types.ObjectId, ref: 'Review', required: true })
+  reviews: Types.ObjectId[];
+
   @Prop()
   description: string;
 
@@ -25,7 +28,7 @@ export class Book {
   book_url: string;
 
   @Prop()
-  publishedDate: Date;
+  published_date: Date;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);

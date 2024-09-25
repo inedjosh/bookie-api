@@ -16,6 +16,8 @@ import { BookService } from './books.service';
 import { Book } from './schema/book.schema';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { BookDto } from './dto/book.dto';
+import { CommenOnBookDto } from './dto/book-comment.dto';
+import { ReviewDocument } from './schema/comments.schema';
 
 @UseGuards(AuthGuard)
 @Controller('v1/books')
@@ -29,6 +31,14 @@ export class BooksController {
     @Req() req,
   ): Promise<ApiResponse<Book>> {
     return this.bookService.createBook(bookData, req.user.id);
+  }
+
+  @Post('comment')
+  async commentOnBook(
+    @Body() reviewData: CommenOnBookDto,
+    @Req() req,
+  ): Promise<ApiResponse<ReviewDocument>> {
+    return this.bookService.commentOnBook(reviewData, req.user.id);
   }
 
   @Get()

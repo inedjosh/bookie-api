@@ -37,9 +37,9 @@ export class AuthorController {
 
   @Get(':id')
   async getAuthorById(
-    @Param('id') authorId: string,
+    @Param('id') userId: string,
   ): Promise<ApiResponse<Author>> {
-    return this.authorService.getAuthorById(authorId);
+    return this.authorService.getAuthorById(userId);
   }
 
   @Put(':id')

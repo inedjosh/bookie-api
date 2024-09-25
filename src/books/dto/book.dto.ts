@@ -22,7 +22,4 @@ export class BookDto {
   @IsOptional()
   @IsString()
   description?: string;
-
-  @IsOptional()
-  reviews?: Array<{ userId: string; rating: number; comment?: string }>;
 }

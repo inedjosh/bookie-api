@@ -3,13 +3,22 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Book, BookDocument } from './schema/book.schema';
 import { ICreateBook } from './interface/books.interface';
+import { ICreateReview } from './interface/comment.interface';
+import { Review, ReviewDocument } from './schema/comments.schema';
 
 @Injectable()
 export class BookRepository {
-  constructor(@InjectModel(Book.name) private bookModel: Model<BookDocument>) {}
+  constructor(
+    @InjectModel(Book.name) private bookModel: Model<BookDocument>,
+    @InjectModel(Review.name) private reviewModel: Model<ReviewDocument>,
+  ) {}
 
   async create(bookData: ICreateBook): Promise<BookDocument> {
     return await this.bookModel.create(bookData);
+  }
+
+  async createComment(bookData: ICreateReview): Promise<ReviewDocument> {
+    return await this.reviewModel.create(bookData);
   }
 
   async findAll(
@@ -33,11 +42,15 @@ export class BookRepository {
       .limit(pageSize)
       .populate({
         path: 'user',
-        select: 'first_name last_name username',
+        select: 'first_name last_name username profile_url role email',
       })
       .populate({
         path: 'author',
         select: 'bio',
+      })
+      .populate({
+        path: 'reviews',
+        select: 'rating comment',
       })
       .exec();
 
@@ -54,18 +67,22 @@ export class BookRepository {
       .findById(bookId)
       .populate({
         path: 'user',
-        select: 'first_name last_name username',
+        select: 'first_name last_name username profile_url role email',
       })
       .populate({
         path: 'author',
         select: 'bio',
+      })
+      .populate({
+        path: 'reviews',
+        select: 'rating comment',
       })
       .exec();
   }
 
   async update(bookId: string, bookData: Partial<ICreateBook>): Promise<Book> {
     return await this.bookModel
-      .findByIdAndUpdate(bookId, bookData, { new: true })
+      .findByIdAndUpdate(bookId, { $set: bookData }, { new: true })
       .exec();
   }
 

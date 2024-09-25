@@ -45,8 +45,8 @@ export class AuthorService {
     };
   }
 
-  async getAuthorById(authorId: string): Promise<ApiResponse<Author>> {
-    const author = await this.authorRepository.findById(authorId);
+  async getAuthorById(userId: string): Promise<ApiResponse<Author>> {
+    const author = await this.authorRepository.findOne({ user: userId });
     return {
       message: 'Author retrieved successfully',
       data: author,
