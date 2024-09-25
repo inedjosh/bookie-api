@@ -38,11 +38,9 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
-  @Get('refresh-token')
-  async refreshToken(
-    @Query('refreshToken') refreshToken: string,
-  ): Promise<ApiResponse<Partial<User>>> {
-    return await this.authService.refreshToken(refreshToken);
+  @Get('refresh')
+  async refresh(@Req() req): Promise<ApiResponse<Partial<User>>> {
+    return await this.authService.refresh(req.user.id);
   }
 
   @UseGuards(AuthGuard)

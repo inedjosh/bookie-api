@@ -9,6 +9,7 @@ import { UserRepository } from '../users/user.repository';
 import { sterilizeUser } from '../utils/sterilzer';
 import { AuthRepository } from './auth.repository';
 import { User } from '../users/schema/user.schema';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class AuthService {
@@ -140,63 +141,20 @@ export class AuthService {
     };
   }
 
-  async refreshToken(refreshToken: string): Promise<ApiResponse<any>> {
-    const decoded = await this.tokenFactory.verifyToken(
-      this.REFRESH_TOKEN_SECRET,
-      refreshToken,
-    );
-
-    if (!decoded) {
-      throw new BadRequestException('Invalid refresh token');
-    }
-
-    const user = await this.userRepository.findOne({ _id: decoded.id });
+  async refresh(userId: string): Promise<ApiResponse<any>> {
+    const user = await this.userRepository.findOne({
+      _id: new Types.ObjectId(userId),
+    });
 
     if (!user) {
       throw new BadRequestException('User not found');
     }
-
-    const userSession = await this.authRepository.getSession(user.id);
-
-    if (!userSession || userSession.refreshToken !== refreshToken) {
-      throw new BadRequestException('Refresh token is expired');
-    }
-
-    const newAccessToken = await this.tokenFactory.generateAccessToken(
-      this.ACCESS_TOKEN_SECRET,
-      {
-        id: user.id,
-        role: user.role,
-        email: user.email,
-        username: user.username,
-      },
-    );
-
-    const newRefreshToken = await this.tokenFactory.generateRefreshToken(
-      this.REFRESH_TOKEN_SECRET,
-      {
-        id: user.id,
-        role: user.role,
-        email: user.email,
-        username: user.username,
-      },
-    );
-
-    await this.authRepository.updateSession(user.id, {
-      email: user.email,
-      id: user._id.toString(),
-      accessToken: newAccessToken,
-      refreshToken: newRefreshToken,
-      role: user.role,
-    });
 
     return {
       status: true,
       message: 'Successfully refreshed tokens',
       data: {
         user: sterilizeUser(user),
-        accessToken: newAccessToken,
-        refreshToken: newRefreshToken,
       },
     };
   }

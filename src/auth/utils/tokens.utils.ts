@@ -7,7 +7,7 @@ export class TokenFactory {
 
   async generateAccessToken(jwtSecret: string, payload: any, expiry?: string) {
     const token = jwt.sign(payload, jwtSecret, {
-      expiresIn: expiry || '1h',
+      expiresIn: expiry || '7d',
     });
 
     return token;
