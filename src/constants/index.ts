@@ -21,3 +21,6 @@ export enum BOOK_GENRE {
   CHILDREN = 'children',
   YOUNG_ADULT = 'young-adult',
 }
+
+export const PROFILE_URL =
+  'https://firebasestorage.googleapis.com/v0/b/bookie-app-c764b.appspot.com/o/download.png?alt=media&token=f042fb6c-77e5-4a28-a361-b1960cd2a5ab';

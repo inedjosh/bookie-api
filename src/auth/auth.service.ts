@@ -10,6 +10,7 @@ import { sterilizeUser } from '../utils/sterilzer';
 import { AuthRepository } from './auth.repository';
 import { User } from '../users/schema/user.schema';
 import { Types } from 'mongoose';
+import { PROFILE_URL } from 'src/constants';
 
 @Injectable()
 export class AuthService {
@@ -27,13 +28,7 @@ export class AuthService {
     'REFRESH_TOKEN_SECRET',
   );
 
-  async registerUser(
-    data: RegisterUserDataDto,
-  ): Promise<
-    ApiResponse<
-      Partial<{ User: User; accessToken: string; refreshToken: string }>
-    >
-  > {
+  async registerUser(data: RegisterUserDataDto): Promise<ApiResponse<any>> {
     const { email } = data;
     const existingUser = await this.userRepository.findOne({ email });
 
@@ -52,6 +47,7 @@ export class AuthService {
       ...data,
       username,
       password: hashedPassword,
+      profile_url: PROFILE_URL,
     });
 
     const accessToken = await this.tokenFactory.generateAccessToken(
@@ -80,7 +76,11 @@ export class AuthService {
 
     return {
       message: 'User registered successfully',
-      data: { ...sterilizeUser(user), accessToken, refreshToken },
+      data: {
+        user: sterilizeUser(user),
+        accessToken,
+        refreshToken,
+      },
       status: true,
     };
   }

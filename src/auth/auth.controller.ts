@@ -24,11 +24,7 @@ export class AuthController {
   @Post('register')
   async register(
     @Body() data: RegisterUserDataDto,
-  ): Promise<
-    ApiResponse<
-      Partial<{ User: User; accessToken: string; refreshToken: string }>
-    >
-  > {
+  ): Promise<ApiResponse<Partial<User>>> {
     return await this.authService.registerUser(data);
   }
 

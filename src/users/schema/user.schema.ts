@@ -21,6 +21,9 @@ export class User {
   @Prop({ type: SchemaTypes.String, default: '' })
   password: string;
 
+  @Prop({ type: SchemaTypes.String, require: true })
+  profile_url: string;
+
   @Prop({ default: true, type: SchemaTypes.Boolean })
   account_active: boolean;
 

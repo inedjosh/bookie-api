@@ -6,5 +6,6 @@ export const sterilizeUser = (user: any) => {
     last_name: user.last_name,
     username: user.username,
     role: user.role,
+    profile_url: user.profile_url,
   };
 };
