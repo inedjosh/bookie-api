@@ -65,6 +65,6 @@ export class BooksController {
 
   @Get('genres')
   async getGenres(): Promise<ApiResponse<any>> {
-    return this.bookService.getGenres(bookId);
+    return this.bookService.getGenres();
   }
 }
