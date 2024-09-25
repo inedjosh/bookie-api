@@ -12,7 +12,6 @@ export class AuthorService {
   constructor(
     private readonly authorRepository: AuthorRepository,
     private readonly userRepository: UserRepository,
-    private readonly authRepository: AuthRepository,
   ) {}
 
   async createAuthor(
