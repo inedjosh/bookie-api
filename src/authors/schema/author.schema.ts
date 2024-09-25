@@ -8,8 +8,17 @@ export class Author {
   @Prop({ type: Types.ObjectId, ref: 'User' })
   user: Types.ObjectId;
 
-  @Prop()
+  @Prop({ type: String, required: true })
   bio: string;
+
+  @Prop({ type: String, required: true })
+  pen_name: string;
+
+  @Prop({ type: [String], required: true })
+  genres: string[];
+
+  @Prop({ type: Number, default: 2.5 })
+  rating: number;
 
   @Prop({ type: [Types.ObjectId], ref: 'Book' })
   books: Types.ObjectId[];

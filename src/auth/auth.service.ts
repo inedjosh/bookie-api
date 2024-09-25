@@ -152,7 +152,7 @@ export class AuthService {
 
     return {
       status: true,
-      message: 'Successfully refreshed tokens',
+      message: 'Successfully refreshed user',
       data: {
         user: sterilizeUser(user),
       },
