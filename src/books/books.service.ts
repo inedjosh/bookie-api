@@ -87,24 +87,4 @@ export class BookService {
     await this.bookRepository.delete(bookId);
     return { message: 'Book deleted successfully', data: null, status: true };
   }
-
-  async getGenres() {
-    return {
-      message: 'Genres fecthed successfully',
-      data: [
-        { key: 'fiction', value: 'fiction' },
-        { key: 'non_fiction', value: 'non-fiction' },
-        { key: 'mystery', value: 'mystery' },
-        { key: 'fantasy', value: 'fantasy' },
-        { key: 'science_fiction', value: 'science-fiction' },
-        { key: 'biography', value: 'biography' },
-        { key: 'romance', value: 'romance' },
-        { key: 'thriller', value: 'thriller' },
-        { key: 'history', value: 'history' },
-        { key: 'children', value: 'children' },
-        { key: 'young_adult', value: 'young-adult' },
-      ],
-      status: true,
-    };
-  }
 }

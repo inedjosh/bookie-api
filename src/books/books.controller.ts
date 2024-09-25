@@ -62,9 +62,4 @@ export class BooksController {
   async deleteBook(@Param('id') bookId: string): Promise<ApiResponse<void>> {
     return this.bookService.deleteBook(bookId);
   }
-
-  @Get('genres')
-  async getGenres(): Promise<ApiResponse<any>> {
-    return this.bookService.getGenres();
-  }
 }

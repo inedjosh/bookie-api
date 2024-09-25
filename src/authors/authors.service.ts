@@ -22,6 +22,8 @@ export class AuthorService {
     const author = await this.authorRepository.create({
       bio: authorData.bio,
       user: new Types.ObjectId(user_id),
+      genres: authorData.genres,
+      pen_name: authorData.pen_name,
     });
 
     await this.userRepository.findByIdAndUpdate(user_id, {

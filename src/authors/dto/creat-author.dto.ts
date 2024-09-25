@@ -1,8 +1,22 @@
 // dto/create-author.dto.ts
-import { IsEmail, IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsArray,
+} from 'class-validator';
 
 export class AuthorDto {
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   bio: string;
+
+  @IsNotEmpty()
+  @IsString()
+  pen_name: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  genres: string[];
 }
