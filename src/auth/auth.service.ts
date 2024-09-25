@@ -28,7 +28,11 @@ export class AuthService {
 
   async registerUser(
     data: RegisterUserDataDto,
-  ): Promise<ApiResponse<Partial<User>>> {
+  ): Promise<
+    ApiResponse<
+      Partial<{ User: User; accessToken: string; refreshToken: string }>
+    >
+  > {
     const { email } = data;
     const existingUser = await this.userRepository.findOne({ email });
 
@@ -75,7 +79,7 @@ export class AuthService {
 
     return {
       message: 'User registered successfully',
-      data: sterilizeUser(user),
+      data: { ...sterilizeUser(user), accessToken, refreshToken },
       status: true,
     };
   }
