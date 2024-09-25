@@ -8,12 +8,14 @@ import { Auth, AuthSchema } from '../auth/schema/auth.schema';
 import { AuthModule } from '../auth/auth.module';
 import { UsersModule } from '../users/users.module';
 import { AuthorsModule } from '../authors/authors.module';
+import { Review, Reviewchema } from './schema/comments.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Book.name, schema: BookSchema },
       { name: Auth.name, schema: AuthSchema },
+      { name: Review.name, schema: Reviewchema },
     ]),
     forwardRef(() => AuthModule),
     forwardRef(() => UsersModule),
