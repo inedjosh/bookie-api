@@ -10,7 +10,11 @@ async function bootstrap() {
   const port = configService.get<number>('PORT', 6000);
 
   const corsOptions: CorsOptions = {
-    origin: '*',
+    origin: [
+      'http://localhost:5175',
+      'http://localhost:5173',
+      'http://localhost:5174',
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
