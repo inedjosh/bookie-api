@@ -33,12 +33,12 @@ export class BooksController {
     return this.bookService.createBook(bookData, req.user.id);
   }
 
-  @Post('comment')
-  async commentOnBook(
+  @Post('review')
+  async reviewBook(
     @Body() reviewData: CommenOnBookDto,
     @Req() req,
   ): Promise<ApiResponse<ReviewDocument>> {
-    return this.bookService.commentOnBook(reviewData, req.user.id);
+    return this.bookService.reviewBook(reviewData, req.user.id);
   }
 
   @Get()

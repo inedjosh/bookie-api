@@ -9,6 +9,7 @@ export interface ICreateBook {
   description?: string;
   published_date?: Date;
   book_url: string;
+  book_image_url: string;
   genre: BOOK_GENRE;
   review: Types.ObjectId[];
 }

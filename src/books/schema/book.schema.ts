@@ -24,7 +24,10 @@ export class Book {
   @Prop({ enum: BOOK_GENRE, required: true })
   genre: BOOK_GENRE;
 
-  @Prop()
+  @Prop({ type: String, required: true })
+  book_image_url: string;
+
+  @Prop({ type: String, required: true })
   book_url: string;
 
   @Prop()

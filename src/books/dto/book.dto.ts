@@ -14,6 +14,9 @@ export class BookDto {
   title: string;
 
   @IsNotEmpty()
+  book_image_url: string;
+
+  @IsNotEmpty()
   book_url: string;
 
   @IsEnum({ BOOK_GENRE })
