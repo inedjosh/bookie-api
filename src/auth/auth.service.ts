@@ -10,7 +10,7 @@ import { sterilizeUser } from '../utils/sterilzer';
 import { AuthRepository } from './auth.repository';
 import { User } from '../users/schema/user.schema';
 import { Types } from 'mongoose';
-import { PROFILE_URL } from 'src/constants';
+import { ACCOUNT_TYPE, PROFILE_URL } from 'src/constants';
 
 @Injectable()
 export class AuthService {
@@ -46,6 +46,7 @@ export class AuthService {
     const user = await this.userRepository.createUser({
       ...data,
       username,
+      role: ACCOUNT_TYPE.READER,
       password: hashedPassword,
       profile_url: PROFILE_URL,
     });

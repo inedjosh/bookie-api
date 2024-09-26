@@ -66,6 +66,18 @@ export class BookRepository {
     };
   }
 
+  async addReviewToBook(
+    bookId: string,
+    reviewId: Types.ObjectId,
+  ): Promise<void> {
+    await this.bookModel
+      .updateOne(
+        { _id: new Types.ObjectId(bookId) },
+        { $push: { reviews: reviewId } },
+      )
+      .exec();
+  }
+
   async findById(bookId: string): Promise<Book> {
     return await this.bookModel
       .findById(bookId)

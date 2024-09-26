@@ -103,6 +103,7 @@ export class BookService {
     user_id: string,
   ): Promise<ApiResponse<ReviewDocument>> {
     const book = await this.bookRepository.findById(reviewData.bookId);
+
     const user = await this.userRepository.getById(user_id);
 
     const comment = await this.bookRepository.createComment({
@@ -114,9 +115,7 @@ export class BookService {
       name: `${user.first_name} ${user.last_name}`,
     });
 
-    await this.bookRepository.update(reviewData.bookId, {
-      reviews: [...book.reviews, new Types.ObjectId(user_id)],
-    });
+    await this.bookRepository.addReviewToBook(reviewData.bookId, comment._id);
 
     return {
       message: 'Book reviewed successfully',
