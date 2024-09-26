@@ -5,4 +5,6 @@ export interface ICreateReview {
   book: Types.ObjectId;
   rating: number;
   comment: string;
+  profile_url: string;
+  name: string;
 }

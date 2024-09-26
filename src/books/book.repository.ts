@@ -79,7 +79,7 @@ export class BookRepository {
       })
       .populate({
         path: 'reviews',
-        select: 'rating comment',
+        select: 'rating comment profile_url name',
       })
       .populate({
         path: 'readers',

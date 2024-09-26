@@ -17,6 +17,12 @@ export class Review {
 
   @Prop({ type: String, required: true })
   comment: string;
+
+  @Prop({ type: String, required: true })
+  profile_url: string;
+
+  @Prop({ type: String, required: true })
+  name: string;
 }
 
 export const Reviewchema = SchemaFactory.createForClass(Review);

@@ -103,12 +103,15 @@ export class BookService {
     user_id: string,
   ): Promise<ApiResponse<ReviewDocument>> {
     const book = await this.bookRepository.findById(reviewData.bookId);
+    const user = await this.userRepository.getById(user_id);
 
     const comment = await this.bookRepository.createComment({
       user: new Types.ObjectId(user_id),
       rating: reviewData.rating,
       comment: reviewData.comment,
       book: new Types.ObjectId(reviewData.bookId),
+      profile_url: user.profile_url,
+      name: `${user.first_name} ${user.last_name}`,
     });
 
     await this.bookRepository.update(reviewData.bookId, {
