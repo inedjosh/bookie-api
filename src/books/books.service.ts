@@ -110,7 +110,7 @@ export class BookService {
     });
 
     return {
-      message: 'Book updated successfully',
+      message: 'Book reviewed successfully',
       data: comment,
       status: true,
     };
