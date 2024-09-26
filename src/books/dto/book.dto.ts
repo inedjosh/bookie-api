@@ -19,7 +19,7 @@ export class BookDto {
   @IsNotEmpty()
   book_url: string;
 
-  @IsEnum({ BOOK_GENRE })
+  @IsEnum(BOOK_GENRE)
   genre: BOOK_GENRE;
 
   @IsOptional()

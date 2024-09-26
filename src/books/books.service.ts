@@ -34,6 +34,7 @@ export class BookService {
       author: author._id,
       user: user._id,
       review: [],
+      readers: [],
     });
 
     const authorsBooks = [...author.books, book._id];
