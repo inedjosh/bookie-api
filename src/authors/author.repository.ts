@@ -37,7 +37,11 @@ export class AuthorRepository {
         path: 'user',
         select: 'first_name last_name username role email profile_url',
       })
-      .populate({ path: 'books', select: 'title' })
+      .populate({
+        path: 'books',
+        select:
+          'title description genre book_url published_date book_image_url genre book_url',
+      })
       .exec();
 
     return {
