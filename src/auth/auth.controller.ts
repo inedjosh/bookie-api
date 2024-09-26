@@ -42,6 +42,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Delete('logout')
   async logout(@Req() req): Promise<ApiResponse<void>> {
-    return await this.authService.logout(req.user._id.toString());
+    return await this.authService.logout(req.user.id);
   }
 }
