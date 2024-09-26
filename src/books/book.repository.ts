@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Book, BookDocument } from './schema/book.schema';
 import { ICreateBook } from './interface/books.interface';
 import { ICreateReview } from './interface/comment.interface';
@@ -78,6 +78,10 @@ export class BookRepository {
         select: 'rating comment',
       })
       .exec();
+  }
+
+  async findBooksByReader(userId: Types.ObjectId): Promise<Book[]> {
+    return this.bookModel.find({ readers: userId }).exec();
   }
 
   async update(bookId: string, bookData: Partial<ICreateBook>): Promise<Book> {

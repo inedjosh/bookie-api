@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { BookRepository } from './book.repository';
-import { Book } from './schema/book.schema';
+import { Book, BookDocument } from './schema/book.schema';
 import { BookDto } from './dto/book.dto';
 import { ACCOUNT_TYPE } from '../constants';
 import { UserRepository } from '../users/user.repository';
@@ -8,6 +8,7 @@ import { AuthorRepository } from '../authors/author.repository';
 import { CommenOnBookDto } from './dto/book-comment.dto';
 import { Types } from 'mongoose';
 import { ReviewDocument } from './schema/comments.schema';
+import { ReadBookDto } from './dto/read-book.dto';
 
 @Injectable()
 export class BookService {
@@ -112,6 +113,32 @@ export class BookService {
     return {
       message: 'Book reviewed successfully',
       data: comment,
+      status: true,
+    };
+  }
+
+  async readBook(data: ReadBookDto, userId: string): Promise<ApiResponse<any>> {
+    const book = await this.bookRepository.findById(data.bookId);
+
+    await this.bookRepository.update(data.bookId, {
+      readers: [...book.readers, new Types.ObjectId(userId)],
+    });
+
+    return {
+      message: 'Book added to your library successfully',
+      data: {},
+      status: true,
+    };
+  }
+
+  async myLibrary(userId: string): Promise<ApiResponse<any>> {
+    const library = await this.bookRepository.findBooksByReader(
+      new Types.ObjectId(userId),
+    );
+
+    return {
+      message: ' Library retrieved successfully',
+      data: library,
       status: true,
     };
   }

@@ -12,6 +12,9 @@ export class Book {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   user: Types.ObjectId;
 
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  readers: Types.ObjectId[];
+
   @Prop({ type: Types.ObjectId, ref: 'Author', required: true })
   author: Types.ObjectId;
 

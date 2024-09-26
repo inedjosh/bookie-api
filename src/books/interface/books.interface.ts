@@ -12,4 +12,5 @@ export interface ICreateBook {
   book_image_url: string;
   genre: BOOK_GENRE;
   review: Types.ObjectId[];
+  readers?: Types.ObjectId[];
 }
