@@ -40,7 +40,7 @@ export class AuthorRepository {
       .populate({
         path: 'books',
         select:
-          'title description genre book_url published_date book_image_url genre book_url',
+          'title description genre book_url published_date book_image_url genre book_url readers',
       })
       .exec();
 
@@ -62,7 +62,7 @@ export class AuthorRepository {
       .populate({
         path: 'books',
         select:
-          'title description genre book_url published_date book_image_url genre book_url',
+          'title description genre book_url published_date book_image_url genre book_url readers',
       })
       .exec();
   }
@@ -77,7 +77,7 @@ export class AuthorRepository {
       .populate({
         path: 'books',
         select:
-          'title description genre book_url published_date book_image_url genre book_url',
+          'title description genre book_url published_date book_image_url genre book_url readers',
       })
       .exec();
   }
