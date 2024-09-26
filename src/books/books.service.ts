@@ -92,7 +92,7 @@ export class BookService {
     return { message: 'Book deleted successfully', data: null, status: true };
   }
 
-  async commentOnBook(
+  async reviewBook(
     reviewData: CommenOnBookDto,
     user_id: string,
   ): Promise<ApiResponse<ReviewDocument>> {
