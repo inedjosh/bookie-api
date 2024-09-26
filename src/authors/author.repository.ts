@@ -48,10 +48,6 @@ export class AuthorRepository {
         select:
           'title description genre book_url published_date book_image_url genre book_url',
       })
-      .populate({
-        path: 'readers',
-        select: 'first_name last_name username email profile_url',
-      })
       .exec();
   }
 

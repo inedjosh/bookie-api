@@ -46,11 +46,15 @@ export class BookRepository {
       })
       .populate({
         path: 'author',
-        select: 'bio',
+        select: 'bio pen_name genres rating',
       })
       .populate({
         path: 'reviews',
         select: 'rating comment',
+      })
+      .populate({
+        path: 'readers',
+        select: 'first_name last_name username email profile_url',
       })
       .exec();
 
@@ -71,11 +75,15 @@ export class BookRepository {
       })
       .populate({
         path: 'author',
-        select: 'bio',
+        select: 'bio pen_name genres rating',
       })
       .populate({
         path: 'reviews',
         select: 'rating comment',
+      })
+      .populate({
+        path: 'readers',
+        select: 'first_name last_name username email profile_url',
       })
       .exec();
   }
