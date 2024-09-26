@@ -10,6 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
   Req,
+  Query,
 } from '@nestjs/common';
 import { AuthorService } from './authors.service';
 import { Author } from './schema/author.schema';
@@ -31,8 +32,17 @@ export class AuthorController {
   }
 
   @Get()
-  async getAllAuthors(): Promise<ApiResponse<Author[]>> {
-    return this.authorService.getAllAuthors();
+  async getAllAuthors(@Query() query: any): Promise<
+    ApiResponse<{
+      authors: Author[];
+      currentPage: number;
+      totalPages: number;
+      totalItems: number;
+    }>
+  > {
+    const { filter, page } = query;
+
+    return this.authorService.getAllAuthors(filter, page);
   }
 
   @Get(':id')

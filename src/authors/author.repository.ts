@@ -14,15 +14,38 @@ export class AuthorRepository {
     return await this.authorModel.create(authorData);
   }
 
-  async findAll(): Promise<Author[]> {
-    return this.authorModel
-      .find()
+  async findAll(
+    filter: any,
+    page: number,
+    pageSize = 20,
+  ): Promise<{
+    authors: Author[];
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+  }> {
+    const totalItems = await this.authorModel.countDocuments(filter);
+    const skip = (page - 1) * pageSize;
+    const totalPages = Math.ceil(totalItems / pageSize);
+
+    const data = await this.authorModel
+      .find(filter)
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(pageSize)
       .populate({
         path: 'user',
         select: 'first_name last_name username role email profile_url',
       })
       .populate({ path: 'books', select: 'title' })
       .exec();
+
+    return {
+      authors: data,
+      currentPage: Number(page),
+      totalPages: totalPages,
+      totalItems,
+    };
   }
 
   async findById(authorId: string): Promise<Author> {

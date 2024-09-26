@@ -40,11 +40,21 @@ export class AuthorService {
     };
   }
 
-  async getAllAuthors(): Promise<ApiResponse<Author[]>> {
-    const authors = await this.authorRepository.findAll();
+  async getAllAuthors(
+    filter: any,
+    page: number,
+  ): Promise<
+    ApiResponse<{
+      authors: Author[];
+      currentPage: number;
+      totalPages: number;
+      totalItems: number;
+    }>
+  > {
+    const data = await this.authorRepository.findAll(filter, page);
     return {
       message: 'Authors retrieved successfully',
-      data: authors,
+      data: data,
       status: true,
     };
   }
