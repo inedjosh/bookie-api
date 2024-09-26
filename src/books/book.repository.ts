@@ -50,7 +50,7 @@ export class BookRepository {
       })
       .populate({
         path: 'reviews',
-        select: 'rating comment',
+        select: 'rating comment profile_url name user',
       })
       .populate({
         path: 'readers',
@@ -91,7 +91,7 @@ export class BookRepository {
       })
       .populate({
         path: 'reviews',
-        select: 'rating comment profile_url name',
+        select: 'rating comment profile_url name user',
       })
       .populate({
         path: 'readers',
