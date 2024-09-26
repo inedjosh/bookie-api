@@ -11,6 +11,6 @@ export interface ICreateBook {
   book_url: string;
   book_image_url: string;
   genre: BOOK_GENRE;
-  review: Types.ObjectId[];
+  reviews: Types.ObjectId[];
   readers?: Types.ObjectId[];
 }

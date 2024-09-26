@@ -33,7 +33,7 @@ export class BookService {
       published_date: new Date(),
       author: author._id,
       user: user._id,
-      review: [],
+      reviews: [],
       readers: [],
     });
 
@@ -112,7 +112,7 @@ export class BookService {
     });
 
     await this.bookRepository.update(reviewData.bookId, {
-      review: [...book.reviews, new Types.ObjectId(user_id)],
+      reviews: [...book.reviews, new Types.ObjectId(user_id)],
     });
 
     return {
