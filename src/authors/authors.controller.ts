@@ -42,12 +42,12 @@ export class AuthorController {
     return this.authorService.getAuthorById(userId);
   }
 
-  @Put(':id')
+  @Put()
   async updateAuthor(
-    @Param('id') authorId: string,
+    @Req() req,
     @Body() authorData: AuthorDto,
   ): Promise<ApiResponse<Author>> {
-    return this.authorService.updateAuthor(authorId, authorData);
+    return this.authorService.updateAuthor(req.user.id, authorData);
   }
 
   @Delete(':id')

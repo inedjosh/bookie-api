@@ -57,11 +57,11 @@ export class AuthorService {
   }
 
   async updateAuthor(
-    authorId: string,
+    userId: string,
     authorData: AuthorDto,
   ): Promise<ApiResponse<Author>> {
     const updatedAuthor = await this.authorRepository.update(
-      authorId,
+      { user: new Types.ObjectId(userId) },
       authorData,
     );
     return {
