@@ -87,17 +87,15 @@ export class BooksController {
     return this.bookService.deleteBook(bookId);
   }
 
-  @Get('books')
+  @Get('search')
   async searchBooks(
     @Query('query') query: string,
     @Query('genre') genre: string,
     @Query('rating') rating: number,
-    @Query('author') author: string,
   ): Promise<ApiResponse<Book[]>> {
     const filters = {
       genre,
       rating,
-      author,
     };
     return this.bookService.searchBooks(query, filters);
   }
