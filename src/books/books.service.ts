@@ -43,7 +43,11 @@ export class BookService {
       { user: user._id },
       { books: authorsBooks },
     );
-    return { message: 'Book created successfully', data: book, status: true };
+    return {
+      message: 'Your Book has been created successfully',
+      data: book,
+      status: true,
+    };
   }
 
   async getBooks(
