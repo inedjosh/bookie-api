@@ -5,4 +5,6 @@ export interface ICreateAuthor {
   user: Types.ObjectId;
   genres: string[];
   pen_name: string;
+  name: string;
+  profile_url: string;
 }

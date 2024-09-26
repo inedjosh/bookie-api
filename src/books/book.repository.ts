@@ -46,7 +46,7 @@ export class BookRepository {
       })
       .populate({
         path: 'author',
-        select: 'bio pen_name genres rating',
+        select: 'bio pen_name genres rating name profile_url',
       })
       .populate({
         path: 'reviews',
@@ -75,7 +75,7 @@ export class BookRepository {
       })
       .populate({
         path: 'author',
-        select: 'bio pen_name genres rating',
+        select: 'bio pen_name genres rating name profile_url',
       })
       .populate({
         path: 'reviews',

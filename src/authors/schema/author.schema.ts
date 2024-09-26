@@ -14,6 +14,9 @@ export class Author {
   @Prop({ type: String, required: true })
   pen_name: string;
 
+  @Prop({ type: String, required: true })
+  name: string;
+
   @Prop({ type: [String], required: true })
   genres: string[];
 
