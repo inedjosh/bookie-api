@@ -86,4 +86,19 @@ export class BooksController {
   async deleteBook(@Param('id') bookId: string): Promise<ApiResponse<void>> {
     return this.bookService.deleteBook(bookId);
   }
+
+  @Get('books')
+  async searchBooks(
+    @Query('query') query: string,
+    @Query('genre') genre: string,
+    @Query('rating') rating: number,
+    @Query('author') author: string,
+  ): Promise<ApiResponse<Book[]>> {
+    const filters = {
+      genre,
+      rating,
+      author,
+    };
+    return this.bookService.searchBooks(query, filters);
+  }
 }

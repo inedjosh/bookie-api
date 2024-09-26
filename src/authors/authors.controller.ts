@@ -67,4 +67,17 @@ export class AuthorController {
   ): Promise<ApiResponse<void>> {
     return this.authorService.deleteAuthor(authorId, req.user.id);
   }
+
+  @Get('authors')
+  async searchAuthors(
+    @Query('query') query: string,
+    @Query('genres') genres: string[],
+    @Query('rating') rating: number,
+  ): Promise<ApiResponse<Author[]>> {
+    const filters = {
+      genres,
+      rating,
+    };
+    return this.authorService.searchAuthors(query, filters);
+  }
 }

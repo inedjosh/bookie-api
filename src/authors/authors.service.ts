@@ -97,4 +97,17 @@ export class AuthorService {
 
     return { message: 'Author deleted successfully', data: null, status: true };
   }
+
+  async searchAuthors(
+    query: string,
+    filter: any,
+  ): Promise<ApiResponse<Author[]>> {
+    const authors = await this.authorRepository.searchAuthors(query, filter);
+
+    return {
+      message: 'Search successfully',
+      data: authors,
+      status: true,
+    };
+  }
 }

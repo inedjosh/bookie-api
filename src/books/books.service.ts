@@ -149,4 +149,14 @@ export class BookService {
       status: true,
     };
   }
+
+  async searchBooks(query: string, filter: any): Promise<ApiResponse<Book[]>> {
+    const books = await this.bookRepository.searchBooks(query, filter);
+
+    return {
+      message: 'Search successfully',
+      data: books,
+      status: true,
+    };
+  }
 }

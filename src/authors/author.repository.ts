@@ -91,4 +91,34 @@ export class AuthorRepository {
   async delete(authorId: string): Promise<Author> {
     return await this.authorModel.findByIdAndDelete(authorId).exec();
   }
+
+  async searchAuthors(query: string, filters: any): Promise<Author[]> {
+    const searchQuery = this.buildAuthorSearchQuery(query, filters);
+    return await this.authorModel
+      .find(searchQuery)
+      .populate('books', 'title genre')
+      .exec();
+  }
+
+  private buildAuthorSearchQuery(query: string, filters: any) {
+    const searchQuery: any = {};
+
+    if (query) {
+      const regex = new RegExp(query, 'i');
+      searchQuery.$or = [
+        { name: regex },
+        { pen_name: regex },
+        { bio: regex },
+        { genres: regex },
+      ];
+    }
+
+    if (filters) {
+      if (filters.genres) {
+        searchQuery.genres = { $in: filters.genres };
+      }
+    }
+
+    return searchQuery;
+  }
 }

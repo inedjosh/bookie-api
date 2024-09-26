@@ -113,4 +113,41 @@ export class BookRepository {
   async delete(bookId: string): Promise<Book> {
     return await this.bookModel.findByIdAndDelete(bookId).exec();
   }
+
+  async searchBooks(query: string, filters: any): Promise<Book[]> {
+    const searchQuery = this.buildBookSearchQuery(query, filters);
+    return await this.bookModel
+      .find(searchQuery)
+      .populate('author', 'name pen_name')
+      .populate('readers', 'first_name last_name')
+      .populate('reviews', 'rating comment')
+      .exec();
+  }
+
+  private buildBookSearchQuery(query: string, filters: any) {
+    const searchQuery: any = {};
+
+    if (query) {
+      const regex = new RegExp(query, 'i');
+      searchQuery.$or = [
+        { title: regex },
+        { description: regex },
+        { genre: regex },
+      ];
+    }
+
+    if (filters) {
+      if (filters.genre) {
+        searchQuery.genre = filters.genre;
+      }
+      if (filters.rating) {
+        searchQuery.rating = { $gte: filters.rating };
+      }
+      if (filters.author) {
+        searchQuery.author = filters.author;
+      }
+    }
+
+    return searchQuery;
+  }
 }
