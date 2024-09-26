@@ -118,9 +118,22 @@ export class BookRepository {
     const searchQuery = this.buildBookSearchQuery(query, filters);
     return await this.bookModel
       .find(searchQuery)
-      .populate('author', 'name pen_name')
-      .populate('readers', 'first_name last_name')
-      .populate('reviews', 'rating comment')
+      .populate({
+        path: 'user',
+        select: 'first_name last_name username profile_url role email',
+      })
+      .populate({
+        path: 'author',
+        select: 'bio pen_name genres rating name profile_url',
+      })
+      .populate({
+        path: 'reviews',
+        select: 'rating comment profile_url name user',
+      })
+      .populate({
+        path: 'readers',
+        select: 'first_name last_name username email profile_url',
+      })
       .exec();
   }
 

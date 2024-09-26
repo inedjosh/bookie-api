@@ -68,7 +68,7 @@ export class AuthorController {
     return this.authorService.deleteAuthor(authorId, req.user.id);
   }
 
-  @Get('search')
+  @Get('search/authors')
   async searchAuthors(
     @Query('query') query: string,
     @Query('genres') genres: string[],

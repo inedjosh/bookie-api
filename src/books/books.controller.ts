@@ -87,7 +87,7 @@ export class BooksController {
     return this.bookService.deleteBook(bookId);
   }
 
-  @Get('search')
+  @Get('search/books')
   async searchBooks(
     @Query('query') query: string,
     @Query('genre') genre: string,
@@ -97,6 +97,7 @@ export class BooksController {
       genre,
       rating,
     };
+    console.log(filters);
     return this.bookService.searchBooks(query, filters);
   }
 }
