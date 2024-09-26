@@ -1,8 +1,7 @@
 export const PRODUCTION = 'production';
 export const DEVELOPMENT = 'development';
 export const STAGING = 'staging';
-export const DEV_DB =
-  'mongodb+srv://inedujoshua:bookie-app@cluster0.lutwp.mongodb.net/';
+export const DEV_DB = 'mongodb://localhost/27074';
 
 export enum ACCOUNT_TYPE {
   READER = 'reader',
