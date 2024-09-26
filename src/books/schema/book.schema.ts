@@ -33,6 +33,9 @@ export class Book {
   @Prop({ type: String, required: true })
   book_url: string;
 
+  @Prop({ type: Number, required: true, default: 1 })
+  rating: number;
+
   @Prop()
   published_date: Date;
 }
