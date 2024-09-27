@@ -101,7 +101,14 @@ export class AuthorService {
   async searchAuthors(
     query: string,
     filter: any,
-  ): Promise<ApiResponse<Author[]>> {
+  ): Promise<
+    ApiResponse<{
+      authors: Author[];
+      currentPage: number;
+      totalPages: number;
+      totalItems: number;
+    }>
+  > {
     const authors = await this.authorRepository.searchAuthors(query, filter);
 
     return {

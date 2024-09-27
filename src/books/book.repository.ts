@@ -114,10 +114,29 @@ export class BookRepository {
     return await this.bookModel.findByIdAndDelete(bookId).exec();
   }
 
-  async searchBooks(query: string, filters: any): Promise<Book[]> {
+  async searchBooks(
+    query: string,
+    filters: any,
+    pageSize = 20,
+  ): Promise<{
+    books: Book[];
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+  }> {
     const searchQuery = this.buildBookSearchQuery(query, filters);
-    return await this.bookModel
+
+    const totalItems = await this.bookModel.countDocuments(searchQuery);
+    const totalPages = Math.ceil(totalItems / pageSize);
+
+    const currentPage = totalPages > 0 ? totalPages : 1;
+    const skip = (currentPage - 1) * pageSize;
+
+    const data = await this.bookModel
       .find(searchQuery)
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(pageSize)
       .populate({
         path: 'user',
         select: 'first_name last_name username profile_url role email',
@@ -135,6 +154,13 @@ export class BookRepository {
         select: 'first_name last_name username email profile_url',
       })
       .exec();
+
+    return {
+      books: data,
+      currentPage,
+      totalPages,
+      totalItems,
+    };
   }
 
   private buildBookSearchQuery(query: string, filters: any) {

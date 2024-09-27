@@ -150,7 +150,17 @@ export class BookService {
     };
   }
 
-  async searchBooks(query: string, filter: any): Promise<ApiResponse<Book[]>> {
+  async searchBooks(
+    query: string,
+    filter: any,
+  ): Promise<
+    ApiResponse<{
+      books: Book[];
+      currentPage: number;
+      totalPages: number;
+      totalItems: number;
+    }>
+  > {
     const books = await this.bookRepository.searchBooks(query, filter);
 
     return {

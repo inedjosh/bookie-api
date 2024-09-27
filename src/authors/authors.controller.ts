@@ -73,7 +73,14 @@ export class AuthorController {
     @Query('query') query: string,
     @Query('genres') genres: string[],
     @Query('rating') rating: number,
-  ): Promise<ApiResponse<Author[]>> {
+  ): Promise<
+    ApiResponse<{
+      authors: Author[];
+      currentPage: number;
+      totalPages: number;
+      totalItems: number;
+    }>
+  > {
     const filters = {
       genres,
       rating,

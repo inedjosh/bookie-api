@@ -92,12 +92,38 @@ export class AuthorRepository {
     return await this.authorModel.findByIdAndDelete(authorId).exec();
   }
 
-  async searchAuthors(query: string, filters: any): Promise<Author[]> {
+  async searchAuthors(
+    query: string,
+    filters: any,
+    pageSize = 20,
+  ): Promise<{
+    authors: Author[];
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+  }> {
     const searchQuery = this.buildAuthorSearchQuery(query, filters);
-    return await this.authorModel
+
+    const totalItems = await this.authorModel.countDocuments(searchQuery);
+    const totalPages = Math.ceil(totalItems / pageSize);
+
+    const currentPage = totalPages > 0 ? totalPages : 1;
+    const skip = (currentPage - 1) * pageSize;
+
+    const data = await this.authorModel
       .find(searchQuery)
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(pageSize)
       .populate('books', 'title genre')
       .exec();
+
+    return {
+      authors: data,
+      currentPage,
+      totalPages,
+      totalItems,
+    };
   }
 
   private buildAuthorSearchQuery(query: string, filters: any) {

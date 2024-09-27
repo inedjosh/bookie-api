@@ -92,7 +92,14 @@ export class BooksController {
     @Query('query') query: string,
     @Query('genre') genre: string,
     @Query('rating') rating: number,
-  ): Promise<ApiResponse<Book[]>> {
+  ): Promise<
+    ApiResponse<{
+      books: Book[];
+      currentPage: number;
+      totalPages: number;
+      totalItems: number;
+    }>
+  > {
     const filters = {
       genre,
       rating,
