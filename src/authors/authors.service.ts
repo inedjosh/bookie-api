@@ -5,7 +5,6 @@ import { AuthorDto } from './dto/creat-author.dto';
 import { Types } from 'mongoose';
 import { UserRepository } from '../users/user.repository';
 import { ACCOUNT_TYPE } from '../constants';
-import { AuthRepository } from '../auth/auth.repository';
 
 @Injectable()
 export class AuthorService {

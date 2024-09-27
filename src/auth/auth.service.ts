@@ -12,8 +12,18 @@ import { User } from '../users/schema/user.schema';
 import { Types } from 'mongoose';
 import { ACCOUNT_TYPE, PROFILE_URL } from 'src/constants';
 
+/**
+ * Service for handling authentication-related operations.
+ * @class AuthService
+ */
 @Injectable()
 export class AuthService {
+  private readonly saltRounds = 10;
+  private readonly ACCESS_TOKEN_SECRET = this.config.get('ACCESS_TOKEN_SECRET');
+  private readonly REFRESH_TOKEN_SECRET = this.config.get(
+    'REFRESH_TOKEN_SECRET',
+  );
+
   constructor(
     private readonly userService: UserService,
     private readonly userRepository: UserRepository,
@@ -22,12 +32,13 @@ export class AuthService {
     private readonly config: ConfigService,
   ) {}
 
-  private readonly saltRounds = 10;
-  private readonly ACCESS_TOKEN_SECRET = this.config.get('ACCESS_TOKEN_SECRET');
-  private readonly REFRESH_TOKEN_SECRET = this.config.get(
-    'REFRESH_TOKEN_SECRET',
-  );
-
+  /**
+   * Registers a new user and creates a session.
+   * @async
+   * @param {RegisterUserDataDto} data - The user registration data.
+   * @returns {Promise<ApiResponse<any>>} The response containing user info and tokens.
+   * @throws {BadRequestException} If the user already exists.
+   */
   async registerUser(data: RegisterUserDataDto): Promise<ApiResponse<any>> {
     const { email } = data;
     const existingUser = await this.userRepository.findOne({ email });
@@ -86,6 +97,13 @@ export class AuthService {
     };
   }
 
+  /**
+   * Authenticates a user and creates a session.
+   * @async
+   * @param {LoginDto} data - The user login data.
+   * @returns {Promise<ApiResponse<any>>} The response containing user info and tokens.
+   * @throws {BadRequestException} If the credentials are invalid.
+   */
   async login(data: LoginDto): Promise<ApiResponse<any>> {
     const { email, password } = data;
 
@@ -142,6 +160,13 @@ export class AuthService {
     };
   }
 
+  /**
+   * Refreshes the user's session and returns user info.
+   * @async
+   * @param {string} userId - The ID of the user.
+   * @returns {Promise<ApiResponse<any>>} The response containing refreshed user info.
+   * @throws {BadRequestException} If the user is not found.
+   */
   async refresh(userId: string): Promise<ApiResponse<any>> {
     const user = await this.userRepository.findOne({
       _id: new Types.ObjectId(userId),
@@ -160,6 +185,12 @@ export class AuthService {
     };
   }
 
+  /**
+   * Logs out a user by deleting their session.
+   * @async
+   * @param {string} user_id - The ID of the user.
+   * @returns {Promise<ApiResponse<void>>} The response indicating logout status.
+   */
   async logout(user_id: string): Promise<ApiResponse<void>> {
     await this.authRepository.deleteSession(user_id);
 
