@@ -103,7 +103,7 @@ api/
 │   ├── auth/               # Authentication module
 │   ├── users/              # User management module
 │   ├── books/              # Books management module
-│   ├── comments/           # Comments management module
+│   ├── author/             # Author management module
 │   ├── app.module.ts       # Main application module
 │   ├── main.ts             # Entry point of the application
 ├── package.json            # Project metadata and dependencies
