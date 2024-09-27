@@ -1,74 +1,160 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Nest API Backend
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Overview
 
-## Description
+This project is a NestJS API backend designed to provide a robust and scalable architecture for your application. It leverages modern technologies and follows best practices in API development.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Scripts](#scripts)
+- [Dependencies](#dependencies)
+- [Testing](#testing)
+- [Code Quality](#code-quality)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- Modular architecture with NestJS.
+- Integrated with Mongoose for MongoDB interactions.
+- Validation using `class-validator` and `class-transformer`.
+- Authentication using JWT (JSON Web Tokens).
+- Prettier and ESLint for code formatting and linting.
+- Comprehensive testing with Jest.
 
 ## Installation
 
+To get started, follow these steps to install the project dependencies:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://your-repo-url.git
+   cd api
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration:**
+   Create a `.env` file in the root directory and add the necessary environment variables. Here's a sample configuration:
+
+   ```
+   MONGO_URI=mongodb://localhost:27017/yourdbname
+   JWT_SECRET=your_jwt_secret
+   ```
+
+## Usage
+
+To run the application, you can use one of the following commands:
+
+- **Development mode:**
+   ```bash
+   npm run start:dev
+   ```
+
+- **Production mode:**
+   ```bash
+   npm run start
+   ```
+
+The API will be available at `http://localhost:3000`.
+
+## Scripts
+
+Here’s a list of available scripts:
+
+- **Build the project:**
+   ```bash
+   npm run build
+   ```
+
+- **Format the code:**
+   ```bash
+   npm run format
+   ```
+
+- **Run tests:**
+   ```bash
+   npm run test
+   ```
+
+- **Run tests in watch mode:**
+   ```bash
+   npm run test:watch
+   ```
+
+- **Run end-to-end tests:**
+   ```bash
+   npm run test:e2e
+   ```
+
+- **Generate new module, service, and controller:**
+   ```bash
+   npm run generate-module your-module-name
+   ```
+
+## Dependencies
+
+This project uses the following dependencies:
+
+- **Core dependencies:**
+   - `@nestjs/common`
+   - `@nestjs/core`
+   - `@nestjs/mongoose`
+   - `mongoose`
+   - `bcryptjs`
+   - `jsonwebtoken`
+
+- **Development dependencies:**
+   - `@nestjs/cli`
+   - `@nestjs/testing`
+   - `jest`
+   - `supertest`
+   - `ts-jest`
+   - `eslint`
+   - `prettier`
+
+For a full list of dependencies, refer to the `package.json` file.
+
+## Testing
+
+### Unit Testing
+
+To run unit tests:
+
 ```bash
-$ npm install
+npm run test
 ```
 
-## Running the app
+### End-to-End Testing
+
+For end-to-end testing, you can run:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run test:e2e
 ```
 
-## Test
+## Code Quality
+
+This project uses ESLint and Prettier for maintaining code quality. To automatically fix issues, run:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run lint
 ```
 
-## Support
+## Deployment
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+For deployment, ensure to build your project using:
 
-## Stay in touch
+```bash
+npm run build
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-# bookie-api
+You can then deploy the built files in the `dist` folder using your preferred hosting service.
