@@ -104,7 +104,6 @@ export class BooksController {
       genre,
       rating,
     };
-    console.log(filters);
     return this.bookService.searchBooks(query, filters);
   }
 }
