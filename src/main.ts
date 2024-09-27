@@ -14,6 +14,7 @@ async function bootstrap() {
       'http://localhost:5175',
       'http://localhost:5173',
       'http://localhost:5174',
+      'https://bookie-app-c764b.web.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
