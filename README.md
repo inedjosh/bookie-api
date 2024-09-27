@@ -1,168 +1,111 @@
-# BOOKIE Nest API Backend
+# Bookie Application Backend API
 
-## Overview
-
-This project is a NestJS API backend designed to provide a robust and scalable architecture for your application. It leverages modern technologies and follows best practices in API development.
+This project is the backend for a book application where users can read books, leave comments, become authors, and perform basic CRUD operations as both readers and authors. The API is built using NestJS and provides endpoints for managing books, comments, and user profiles.
 
 ## Table of Contents
 
+- [Getting Started](#getting-started)
 - [Features](#features)
+- [Technologies Used](#technologies-used)
+- [API Endpoints](#api-endpoints)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Scripts](#scripts)
-- [Dependencies](#dependencies)
-- [Testing](#testing)
-- [Code Quality](#code-quality)
-- [Deployment](#deployment)
+- [Directory Structure](#directory-structure)
 - [Contributing](#contributing)
 - [License](#license)
 
+## Getting Started
+
+To get started with this project, follow the instructions below to set up your local development environment.
+
 ## Features
 
-- Modular architecture with NestJS.
-- Integrated with Mongoose for MongoDB interactions.
-- Validation using `class-validator` and `class-transformer`.
-- Authentication using JWT (JSON Web Tokens).
-- Prettier and ESLint for code formatting and linting.
-- Comprehensive testing with Jest.
+- **User Management**: Users can sign up, log in, and manage their profiles.
+- **Read Books**: Users can browse and read a wide selection of books.
+- **Commenting**: Users can leave comments on books to share their thoughts and insights.
+- **Authoring**: Users can become authors and manage their own books.
+- **CRUD Operations**: Basic Create, Read, Update, and Delete operations for books and comments.
+
+## Technologies Used
+
+- **NestJS**: A progressive Node.js framework for building efficient and scalable server-side applications.
+- **MongoDB**: A NoSQL database for storing book and user data.
+- **Mongoose**: A MongoDB object modeling tool for Node.js.
+- **JWT**: JSON Web Token for user authentication.
+
+## API Endpoints
+
+### Authentication
+
+- **POST /auth/signup**: Register a new user.
+- **POST /auth/login**: Authenticate a user and return a JWT.
+
+### Users
+
+- **GET /users**: Retrieve a list of all users.
+- **GET /users/:id**: Retrieve a specific user by ID.
+- **PUT /users/:id**: Update a user's profile.
+- **DELETE /users/:id**: Delete a user account.
+
+### Books
+
+- **GET /books**: Retrieve a list of all books.
+- **GET /books/:id**: Retrieve a specific book by ID.
+- **POST /books**: Create a new book (author only).
+- **PUT /books/:id**: Update a book (author only).
+- **DELETE /books/:id**: Delete a book (author only).
+
+### Comments
+
+- **GET /books/:id/comments**: Retrieve comments for a specific book.
+- **POST /books/:id/comments**: Add a comment to a specific book.
+- **DELETE /comments/:id**: Delete a specific comment.
 
 ## Installation
 
-To get started, follow these steps to install the project dependencies:
-
-1. **Clone the repository:**
+1. Clone the repository:
 
    ```bash
-   git clone https://your-repo-url.git
+   git clone <repository-url>
    cd api
    ```
 
-2. **Install dependencies:**
+2. Install dependencies:
 
    ```bash
    npm install
    ```
 
-3. **Environment Configuration:**
-   Create a `.env` file in the root directory and add the necessary environment variables. Here's a sample configuration:
-
-   ```
-   MONGO_URI=mongodb://localhost:27017/yourdbname
-   JWT_SECRET=your_jwt_secret
-   ```
-
 ## Usage
 
-To run the application, you can use one of the following commands:
+To start the development server, run:
 
-- **Development mode:**
+```bash
+npm run start:dev
+```
 
-  ```bash
-  npm run start:dev
-  ```
-
-- **Production mode:**
-  ```bash
-  npm run start
-  ```
-
-The API will be available at `http://localhost:3000`.
+You can then access the API at `http://localhost:3000`.
 
 ## Scripts
 
-Here’s a list of available scripts:
+- **build**: Builds the application for production.
+- **start**: Starts the application in production mode.
+- **start:dev**: Starts the application in development mode with auto-reload.
+- **lint**: Runs ESLint to check for code quality issues.
+- **test**: Runs tests for the application.
 
-- **Build the project:**
+## Directory Structure
 
-  ```bash
-  npm run build
-  ```
-
-- **Format the code:**
-
-  ```bash
-  npm run format
-  ```
-
-- **Run tests:**
-
-  ```bash
-  npm run test
-  ```
-
-- **Run tests in watch mode:**
-
-  ```bash
-  npm run test:watch
-  ```
-
-- **Run end-to-end tests:**
-
-  ```bash
-  npm run test:e2e
-  ```
-
-- **Generate new module, service, and controller:**
-  ```bash
-  npm run generate-module your-module-name
-  ```
-
-## Dependencies
-
-This project uses the following dependencies:
-
-- **Core dependencies:**
-
-  - `@nestjs/common`
-  - `@nestjs/core`
-  - `@nestjs/mongoose`
-  - `mongoose`
-  - `bcryptjs`
-  - `jsonwebtoken`
-
-- **Development dependencies:**
-  - `@nestjs/cli`
-  - `@nestjs/testing`
-  - `jest`
-  - `supertest`
-  - `ts-jest`
-  - `eslint`
-  - `prettier`
-
-For a full list of dependencies, refer to the `package.json` file.
-
-## Testing
-
-### Unit Testing
-
-To run unit tests:
-
-```bash
-npm run test
+```plaintext
+api/
+├── src/                    # Source code
+│   ├── auth/               # Authentication module
+│   ├── users/              # User management module
+│   ├── books/              # Books management module
+│   ├── comments/           # Comments management module
+│   ├── app.module.ts       # Main application module
+│   ├── main.ts             # Entry point of the application
+├── package.json            # Project metadata and dependencies
+└── tsconfig.json           # TypeScript configuration
 ```
-
-### End-to-End Testing
-
-For end-to-end testing, you can run:
-
-```bash
-npm run test:e2e
-```
-
-## Code Quality
-
-This project uses ESLint and Prettier for maintaining code quality. To automatically fix issues, run:
-
-```bash
-npm run lint
-```
-
-## Deployment
-
-For deployment, ensure to build your project using:
-
-```bash
-npm run build
-```
-
-You can then deploy the built files in the `dist` folder using your preferred hosting service.
